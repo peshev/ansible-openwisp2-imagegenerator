@@ -83,6 +83,12 @@
     file_dir.stat.exists == true and
     (not org_filter or item.name in org_filter)
 
+- name: Fix permissions for /etc/dropbear/authorized_keys
+  file:
+    path: "{{ openwisp2fw_generator_dir }}/files/{{ item.name }}/etc/dropbear/authorized_keys"
+    mode: 0600
+  with_items: "{{ openwisp2fw_organizations }}"
+
 - name: /etc/config/openwisp
   template:
     dest: "{{ openwisp2fw_generator_dir }}/files/{{ item.name }}/etc/config/openwisp"
